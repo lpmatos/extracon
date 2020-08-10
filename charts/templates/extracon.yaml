@@ -1,0 +1,43 @@
+apiVersion: {{ template "deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.type.name }}
+  namespace: extracon
+  labels:
+    app: {{ .Values.deployment.type.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.type.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.type.name }}
+    spec:
+      initContainers:
+        - name: init-container
+          image: busybox:1.28
+          volumeMounts:
+            - name: extracon
+              mountPath: /usr/src/code/files
+              subPath: files
+      imagePullSecrets:
+        - name: registry
+      containers:
+        - name: {{ .Values.deployment.type.name }}
+          image: luccapessoa/extracon:{{ .Values.deployment.type.name }}-{{ .Values.deployment.type.version }}
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do python main.py; sleep 100000;done"]
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{ include "deployment.envs" . | nindent 12 }}
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: telegram-token
+                  key: telegram-token
+      volumes:
+        - name: extracon
+          persistentVolumeClaim:
+            claimName: pvc-vol-extracon
+---

@@ -1,0 +1,24 @@
+name: Docker Hub CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  push:
+    name: Docker Hub Build and Push
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE_NAME: luccapessoa/extracon
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker Hub image
+        run: docker image build -t ${DOCKER_IMAGE_NAME} .
+      - name: Log into Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username luccapessoa --password-stdin
+      - name: Push image to Docker Hub
+        run: |
+          docker image tag ${DOCKER_IMAGE_NAME} ${DOCKER_IMAGE_NAME}:servidor-v5
+          docker image push ${DOCKER_IMAGE_NAME}:servidor-v5

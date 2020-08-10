@@ -1,0 +1,42 @@
+# ==============================================================================
+# RESOURCES DEFINITION
+# ==============================================================================
+
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  requests:
+    cpu: "4000m"
+    memory: "3Gi"
+  limits:
+    cpu: "6000m"
+    memory: "4Gi"
+
+# ==============================================================================
+# DEPLOYMENT DEFINITION
+# ==============================================================================
+
+deployment:
+  type:
+    name: servidor
+    version: v5
+  telegram:
+    token:
+  excel:
+    number: 15
+  envs:
+    LANG: C.UTF-8
+    LC_ALL: C.UTF-8
+    PYTHONDONTWRITEBYTECODE: 1
+    PYTHONUNBUFFERED: 1
+    PYTHONUTF8: 1
+    TZ: America/Sao_Paulo
+    LOG_PATH: /var/log/extracon
+    LOG_FILE: file.log
+    LOG_LEVEL: DEBUG
+    LOGGER: Extracon
+    PDF_PATH: /usr/src/code/files
