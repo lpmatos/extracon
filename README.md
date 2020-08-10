@@ -61,23 +61,25 @@ This will give access on your **local machine**.
 
 To this project you yeed:
 
+### Requirement
+
 * Python 3.8.
 * Telegram API Token.
 * Docker and Docker Compose.
+
+### Optional 
+
+* NPM | Yarn (package tool)
+* Install Packages
+  * Husky
+  * Commitlint
+  * Commitizen
+  * Standard-Version
 
 Helm and Kubernetes feature:
 
 * Kubernetes 1.10+
 * PV dynamic provisioning support on the underlying infrastructure
-
-## Built with
-
-* [Python](https://www.python.org/)
-* [Telegram](https://core.telegram.org/)
-* [Docker](https://docs.docker.com/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [Helm](https://helm.sh/)
-* [YAML](https://yaml.org/)
 
 ## How to use it?
 
@@ -244,6 +246,107 @@ deployment:
   excel:
     number: 15
 ```
+
+## Commit Lint
+
+We all did bad commit messages. Lucky us, Conventional Commits specification exists, and with it a set of powerful tools to help us.
+
+To enforce a standard every time we make a commit, we have husky and commitlint. Husky listen to git hooks, and we will use it to trigger the commitlint when we type a commit message.
+
+Commitizen is a package that makes it easier to create commit messages following the previous specification.
+
+* husky
+* commitlint
+* commitizen
+
+<strong>Requirements:</strong>
+
+> OBS: Required .git folder in project
+* .git in folder
+* Node
+* yarn | npm
+
+<strong>Install by default [package.json](package.json):</strong>
+
+```cmd
+yarn install
+```
+
+<strong>Manual Installment:</strong>
+
+```cmd
+yarn init -y
+
+yarn add @commitlint/config-conventional @commitlint/cli husky commitizen -D
+
+echo module.exports = {extends: ['@commitlint/config-conventional']} > commitlint.config.js
+```
+
+add configuration in package.json:
+
+```json
+"husky": {
+    "hooks": {
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+},
+"config": {
+    "commitizen": {
+        "path": "./node_modules/cz-conventional-changelog"
+    }
+}
+```
+
+<strong>Use:</strong>
+
+with dependencies already installed, commits that do not follow the semmantic commit rules will be automatically blocked in the development environment
+
+```cmd
+C:\>  git add .
+C:\>  git commit -m "commit"
+
+
+husky > commit-msg (node v12.14.0)
+⧗   input: commit
+✖   subject may not be empty [subject-empty]
+✖   type may not be empty [type-empty]
+
+✖   found 2 problems, 0 warnings
+ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
+husky > commit-msg hook failed (add --no-verify to bypass)
+```
+
+using the commitzen, previously installed, an auxiliary service will be available to build the commits
+
+```cmd
+C:\>  git add .
+C:\>  npm run commit
+
+
+cz-cli@4.0.3, cz-conventional-changelog@3.2.0
+
+? Select the type of change that you're committing: (Use arrow keys)
+> feat:     A new feature
+  fix:      A bug fix
+  docs:     Documentation only changes
+  style:    Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+  refactor: A code change that neither fixes a bug nor adds a feature
+  perf:     A code change that improves performance
+  test:     Adding missing tests or correcting existing tests
+  build:    Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+  ci:       Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs) 
+  chore:    Other changes that don't modify src or test files
+  revert:   Reverts a previous commit
+```
+
+## Standard version
+
+Once you have conventional commits, you can make use of them with the next tool. Standard-version will usually do the following things:
+
+* updates semantic version according to the scope of changes described in the commits
+* updates CHANGELOG.md file with the new version and list of changes
+* commits both changes and tags them with the new version
 
 ## Features
 
