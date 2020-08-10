@@ -26,8 +26,6 @@ RUN apt-get update && \
 
 WORKDIR /usr/src/code
 
-COPY [ "./files/servidor", "/usr/src/code/files" ]
-
 COPY --from=install-env [ "/root/.local", "/usr/local" ]
 
 COPY [ "./code", "." ]

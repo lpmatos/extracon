@@ -1,5 +1,7 @@
-files/beneficiario/*.txt
-files/beneficiario/*.xlsx
-files/beneficiario/*.rar
-files/servidor/*.xlsx
-files/servidor/*.rar
+# Extracon files.
+files/beneficiario/*
+files/servidor/*
+
+# Node modules and package-lock.
+node_modules/
+package-lock.json
