@@ -1,6 +1,6 @@
 {
   "_comment": "this project is not a node.js one, package.json is just used to define some metadata",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "author": "Lucca Pessoa da Silva Matos",
   "license": "MIT",
   "scripts": {
