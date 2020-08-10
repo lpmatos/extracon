@@ -1,0 +1,72 @@
+{
+  "_comment": "this project is not a node.js one, package.json is just used to define some metadata",
+  "version": "1.1.0",
+  "author": "Lucca Pessoa da Silva Matos",
+  "license": "MIT",
+  "scripts": {
+    "commit": "git cz",
+    "release": "standard-version"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "docs",
+        "hidden": true
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "section": "Refactors"
+      },
+      {
+        "type": "perf",
+        "section": "Performance"
+      },
+      {
+        "type": "test",
+        "hidden": true
+      },
+      {
+        "type": "ci",
+        "hidden": true
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "revert",
+        "section": "Reverts"
+      }
+    ],
+    "releaseCommitMessageFormat": "chore(release): {{currentTag}} [skip ci]"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "9.1.1",
+    "@commitlint/config-conventional": "9.1.1",
+    "commitizen": "4.1.2",
+    "husky": "4.2.5",
+    "standard-version": "^8.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
