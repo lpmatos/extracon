@@ -76,11 +76,6 @@ To this project you yeed:
   * Commitizen
   * Standard-Version
 
-### Helm and Kubernetes
-
-* Kubernetes 1.10+
-* PV dynamic provisioning support on the underlying infrastructure
-
 ## How to use it?
 
 ### Locale
@@ -192,61 +187,6 @@ docker-compose down --rmi all
 
 ![Alt text](docs/USAGE.PNG?raw=true "Usage")
 
-## Helm
-
-### Organization
-
-* **/templates** is a directory of templates that, when combined with values.
-* **/templates/_helpers.tpl** file where we define custom templates.
-* **/templates/NOTES.txt** OPTIONAL: A plain text file containing short usage notes.
-* **/files** folder to inject external files.
-* **Chart.yml** A YAML file containing information about the chart.
-* **values.yml** The default configuration values for this chart.
-* **README.md** OPTIONAL: A human-readable README file.
-
-### Installing the Chart
-
-To install the chart with the release name `my-release`:
-
-```bash
-$ helm install --name my-release extracon
-```
-
-### Deleting the Charts
-
-Delete the Helm deployment as normal
-
-```
-$ helm delete my-release
-```
-
-Deletion of the StatefulSet doesn't cascade to deleting associated PVCs. To delete them:
-
-```
-$ kubectl delete pvc -l release=my-release,component=data
-```
-
-### Validate Helm
-
-To valite your Helm Template you can run this command:
-
-```bash
-helm install --debug --dry-run . --generate-name
-```
-
-### Exemple Helm Answers
-
-```yaml
-deployment:
-  type:
-    name: servidor
-    version: v2
-  telegram:
-    token: "5435efdjhds6709077adhhGDSHGDS"
-  excel:
-    number: 15
-```
-
 ## Commit Lint
 
 We all did bad commit messages. Lucky us, Conventional Commits specification exists, and with it a set of powerful tools to help us.
@@ -348,12 +288,6 @@ Once you have conventional commits, you can make use of them with the next tool.
 * updates CHANGELOG.md file with the new version and list of changes
 * commits both changes and tags them with the new version
 
-## Features
-
-- [x] Github Actions to build and push docker image to github repository and docker hub repository.
-- [x] Makefile with some short cuts for docker and docker-compose.
-- [x] Helm chart to deploy this application in a Kubernetes cluster.
-
 ## How to contribute
 
 >
@@ -376,10 +310,6 @@ git commit -m "Added - Fixing somethings"
 git push origin master
 ```
 
-## Versioning
-
-- [CHANGELOG](CHANGELOG.md)
-
 ## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
@@ -398,10 +328,6 @@ Hey!! If you like this project or if you find some bugs feel free to contact me 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
-
-## Project Status
-
-* ✔️ Finish
 
 ---
 
